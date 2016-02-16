@@ -14,6 +14,28 @@
 # limitations under the License.
 #
 
+# Enable root support
+ifeq ($(TARGET_BUILD_VARIANT),user)
+    TARGET_HAS_ROOTAPPS := true
+endif
+
+# CM Build Type
+CM_BUILDTYPE=OFFICIAL
+
+# GCC 5.3.0 & Java 1.8.X
+TARGET_TOOLS_PREFIX := /usr/bin/arm-linux-androideabi-
+KERNEL_TOOLS_PREFIX := /usr/bin/arm-eabi-
+ARM_EABI_PREFIX := /usr/bin/arm-eabi-
+JAVA_HOME := /usr/java/jdk1.8.0_72
+TARGET_NDK_GCC_VERSION := 5.3
+
+# DEX preoptimization
+WITH_DEXPREOPT := true
+
+# Optimization Flags
+OPTFLAGS_ARM := -march armv7-a -mtune cortex-a9 -Ofast -flto
+OPTFLAGS_THUMB := -march armv7-a -mtune cortex-a9 -Os -flto
+
 # Architecture
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -29,6 +51,13 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
+
+# Disable OTA
+# BLOCK_BASED_OTA := false
+
+# Set OTA parameters and header extras
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/golden/include
+TARGET_OTA_ASSERT_DEVICRE := golden,i8190,GT-I8190
 
 # Board
 TARGET_BOOTLOADER_BOARD_NAME := montblanc
@@ -48,7 +77,7 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 #TARGET_PREBUILT_KERNEL := device/samsung/golden/ramdisk/zImage
 TARGET_KERNEL_SOURCE := kernel/samsung/golden
-TARGET_KERNEL_CONFIG := golden_android_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_goldennfc_defconfig
 TARGET_NO_INITLOGO := true
 
 # Graphics
@@ -96,3 +125,47 @@ TARGET_RECOVERY_FSTAB := device/samsung/golden/ramdisk/fstab.samsunggolden
 
 # GPS
 TARGET_ENABLE_NON_PIE_SUPPORT := true
+
+# USB Mounting
+BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun/file"
+
+# Vold
+BOARD_VOLD_MAX_PARTITIONS := 25
+BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
+BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
+
+# RIL
+BOARD_USES_LIBSECRIL_STUB := true
+BOARD_MOBILEDATA_INTERFACE_NAME := "pdp0"
+
+# Recovery
+BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_PREBUILT_RECOVERY_KERNEL := device/samsung/golden/recovery/recovery_kernel
+TARGET_RECOVERY_INITRC = device/samsung/golden/recovery/root/init.rc
+BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/golden/recovery/graphics.c
+BOARD_HAS_NO_MISC_PARTITION := true
+BOARD_SUPPRESS_EMMC_WIPE := true
+BOARD_HAS_NO_MISC_PARTITION := true
+
+# twrp stuffs
+# TODO recovery/twrp-graphics.c: please see the file for comments
+TW_BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/golden/recovery/twrp-graphics.c
+DEVICE_RESOLUTION := 480x800
+RECOVERY_SDCARD_ON_DATA := true
+TW_INTERNAL_STORAGE_PATH := "/data/media"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+TW_EXTERNAL_STORAGE_PATH := "/external_sd"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
+TW_NO_REBOOT_BOOTLOADER := true
+TW_HAS_DOWNLOAD_MODE := true
+BOARD_HAS_NO_REAL_SDCARD := true
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/virtual/android_usb/android0/f_mass_storage/lun/file
+
+TW_INCLUDE_CRYPTO_SAMSUNG := true
+TW_INCLUDE_CRYPTO := true
+TW_CRYPTO_FS_TYPE := "ext4"
+TW_CRYPTO_REAL_BLKDEV := "/dev/block/mmcblk0p25"
+TW_CRYPTO_MNT_POINT := "/data"
+TW_CRYPTO_FS_OPTIONS := "noatime,nosuid,nodev,discard,noauto_da_alloc,journal_async_commit,errors=panic    wait,check"
+
+
