@@ -33,8 +33,8 @@ TARGET_NDK_GCC_VERSION := 5.3
 WITH_DEXPREOPT := true
 
 # Optimization Flags
-OPTFLAGS_ARM := -march armv7-a -mtune cortex-a9 -Ofast -flto
-OPTFLAGS_THUMB := -march armv7-a -mtune cortex-a9 -Os -flto
+OPTFLAGS_ARM := -march=armv7-a -mtune=cortex-a9 -Ofast -flto
+OPTFLAGS_THUMB := -march=armv7-a -mtune=cortex-a9 -Os -flto
 
 # Architecture
 TARGET_CPU_ABI := armeabi-v7a
