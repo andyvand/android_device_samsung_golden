@@ -77,7 +77,7 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 #TARGET_PREBUILT_KERNEL := device/samsung/golden/ramdisk/zImage
 TARGET_KERNEL_SOURCE := kernel/samsung/golden
-TARGET_KERNEL_CONFIG := cyanogenmod_goldennfc_defconfig
+TARGET_KERNEL_CONFIG := golden_cm13_defconfig
 TARGET_NO_INITLOGO := true
 
 # Graphics
