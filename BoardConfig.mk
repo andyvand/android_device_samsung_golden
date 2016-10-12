@@ -14,27 +14,8 @@
 # limitations under the License.
 #
 
-# Enable root support
-ifeq ($(TARGET_BUILD_VARIANT),user)
-    TARGET_HAS_ROOTAPPS := true
-endif
-
-# CM Build Type
-CM_BUILDTYPE=OFFICIAL
-
-# GCC 5.3.0 & Java 1.8.X
-TARGET_TOOLS_PREFIX := /usr/bin/arm-linux-androideabi-
-KERNEL_TOOLS_PREFIX := /usr/bin/arm-eabi-
-ARM_EABI_PREFIX := /usr/bin/arm-eabi-
-JAVA_HOME := /usr/java/jdk1.8.0_72
-TARGET_NDK_GCC_VERSION := 5.3
-
-# DEX preoptimization
-WITH_DEXPREOPT := true
-
-# Optimization Flags
-OPTFLAGS_ARM := -march armv7-a -mtune cortex-a9 -Ofast -flto
-OPTFLAGS_THUMB := -march armv7-a -mtune cortex-a9 -Os -flto
+# Release Build
+CM_BUILDTYPE := RELEASE
 
 # Architecture
 TARGET_CPU_ABI := armeabi-v7a
@@ -43,6 +24,7 @@ TARGET_CPU_SMP := true
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a9
+CPU_TARGET_SMP := true
 
 # Partitions
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1258291200
@@ -51,13 +33,6 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
-
-# Disable OTA
-# BLOCK_BASED_OTA := false
-
-# Set OTA parameters and header extras
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/golden/include
-TARGET_OTA_ASSERT_DEVICRE := golden,i8190,GT-I8190
 
 # Board
 TARGET_BOOTLOADER_BOARD_NAME := montblanc
@@ -77,7 +52,7 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 #TARGET_PREBUILT_KERNEL := device/samsung/golden/ramdisk/zImage
 TARGET_KERNEL_SOURCE := kernel/samsung/golden
-TARGET_KERNEL_CONFIG := golden_cm13_defconfig
+TARGET_KERNEL_CONFIG := golden_android_defconfig
 TARGET_NO_INITLOGO := true
 
 # Graphics
@@ -126,8 +101,36 @@ TARGET_RECOVERY_FSTAB := device/samsung/golden/ramdisk/fstab.samsunggolden
 # GPS
 TARGET_ENABLE_NON_PIE_SUPPORT := true
 
-# USB Mounting
-BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun/file"
+
+# Parameters
+#OPTFLAGS_ARM := -march=armv7-a -mtune=cortex-a9 -Ofast -flto
+WITH_DEXPREOPT := true
+OVERRIDE_RUNTIMES := runtime_libdvm_default runtime_libart
+
+# GCC 5.3.0 & Java 1.8
+#TARGET_TOOLS_PREFIX := /usr/bin/arm-linux-androideabi-
+#KERNEL_TOOLS_PREFIX := /usr/bin/arm-eabi-
+#ARM_EABI_PREFIX := /usr/bin/arm-eabi-
+#JAVA_HOME := /usr/java/jdk1.8.0_72
+#TARGET_GCC_EXP := 5.3
+
+# Kernel
+BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
+#TARGET_PREBUILT_KERNEL := device/samsung/golden/ramdisk/zImage
+TARGET_KERNEL_SOURCE := kernel/samsung/golden
+TARGET_KERNEL_CONFIG := golden_cm13_defconfig
+TARGET_NO_INITLOGO := true
+
+# NFC
+BOARD_NFC_CHIPSET := pn547
+BOARD_NFC_LPM_LOSES_CONFIG := true
+BOARD_NFC_DEVICE := "/dev/pn547"
+
+# OTA Parameters
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/golden/include
+TARGET_OTA_ASSERT_DEVICE := golden,i8190,GT-I8190
 
 # Vold
 BOARD_VOLD_MAX_PARTITIONS := 25
@@ -147,8 +150,7 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_SUPPRESS_EMMC_WIPE := true
 BOARD_HAS_NO_MISC_PARTITION := true
 
-# twrp stuffs
-# TODO recovery/twrp-graphics.c: please see the file for comments
+# TWRP Stuffs
 TW_BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/golden/recovery/twrp-graphics.c
 DEVICE_RESOLUTION := 480x800
 RECOVERY_SDCARD_ON_DATA := true
@@ -167,5 +169,17 @@ TW_CRYPTO_FS_TYPE := "ext4"
 TW_CRYPTO_REAL_BLKDEV := "/dev/block/mmcblk0p25"
 TW_CRYPTO_MNT_POINT := "/data"
 TW_CRYPTO_FS_OPTIONS := "noatime,nosuid,nodev,discard,noauto_da_alloc,journal_async_commit,errors=panic    wait,check"
+TW_CRYPTO_FS_FLAGS := "0x00000406"
+TW_CRYPTO_KEY_LOC := "footer"
 
+# TWRP Extras
+TW_INCLUDE_NTFS_3G := true
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USERIMAGES_USE_F2FS := true
+TWHAVE_SELINUX := true
+TW_INCLUDE_FB2PNG := true
+TW_INCLUDE_INJECTTWRP := true
+TARGET_USES_LOGD := true
+TWRES_PATH := "/res"
+TW_DEFAULT_LANGUAGE := nl
 

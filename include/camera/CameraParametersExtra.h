@@ -1,6 +1,3 @@
-#ifndef CAMERA_EXTRA_PARAMETERS_H_
-#define CAMERA_EXTRA_PARAMETERS_H_ 1
-
 /*
  * Copyright (C) 2014 The CyanogenMod Project
  *
@@ -19,7 +16,6 @@
 
 #include "camera/CameraParametersExtraDurationTimer.h"
 
-#ifndef CAMERA_PARAMETERS_EXTRA_C
 #define CAMERA_PARAMETERS_EXTRA_C \
 const char CameraParameters::SCENE_MODE_AQUA[] = "aqua"; \
 const char CameraParameters::SCENE_MODE_BACKLIGHT[] = "backlight"; \
@@ -35,9 +31,7 @@ const char CameraParameters::PIXEL_FORMAT_YVU420P[]  = "yvu420p"; \
 const char CameraParameters::KEY_RECORD_STRIDE[] = "record-stride"; \
 const char CameraParameters::KEY_RECORD_SLICE_HEIGHT[] = "record-slice-height"; \
 CAMERA_PARAMETERS_EXTRA_C_DURATION_TIMER \
-#endif /* CAMERA_PARAMETERS_C_DURATION_TIMER */
 
-#ifndef CAMERA_PARAMETERS_EXTRA_H
 #define CAMERA_PARAMETERS_EXTRA_H \
     static const char SCENE_MODE_AQUA[]; \
     static const char SCENE_MODE_BACKLIGHT[]; \
@@ -52,7 +46,3 @@ CAMERA_PARAMETERS_EXTRA_C_DURATION_TIMER \
     static const char PIXEL_FORMAT_YUV420MB[]; \
     static const char KEY_RECORD_STRIDE[]; \
     static const char KEY_RECORD_SLICE_HEIGHT[];
-#endif /* CAMERA_PARAMETERS_EXTRA_H */
-
-#endif /* CAMERA_EXTRA_PARAMETERS_H_ */
-

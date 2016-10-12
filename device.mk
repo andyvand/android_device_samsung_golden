@@ -17,6 +17,9 @@
 # Add overlay
 DEVICE_PACKAGE_OVERLAYS += device/samsung/golden/overlay
 
+# Build Property Overrides
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=cm_golden BUILD_FINGERPRINT=cyanogenmod/cm_golden/golden:6.0.1/$(BUILD_ID) PRIVATE_BUILD_DESC="GT-I8190 6.0.1"
+
 # Define kind of DPI
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
@@ -42,7 +45,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs \
-    Stk
+    Stk \
+    Nfc \
+    NfcNci \
+    nfc_nci.pn547
 
 #F2FS
 PRODUCT_PACKAGES += \
